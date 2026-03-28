@@ -19,6 +19,29 @@ int main( void ) {
     // print the data by following links
     traverseI( first );
 
+    traverseW( first );
+
+    traverseR( first );
+
+    //prepend node
+    Node *newNode = createNode(createData(4));
+    newNode->next = first;
+
+    traverseR( newNode );
+
+    //insert node in middle
+    Node *new2 = createNode(createData(5));
+    new2->next = second->next;
+    second->next = new2;
+
+    traverseR( newNode );
+
+    //delete node
+    first->next = second->next;
+    freeNode(second);
+
+    traverseR( newNode );
+
     // free all node memory (using traversal)
     freeNodes( first );
 

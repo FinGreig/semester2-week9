@@ -16,6 +16,11 @@ int main( void ) {
     push(stack,1);
     traverseI(stack->top);  // display the stack
 
+    Node *node = pop(stack);
+    freeNode(node);
+    push(stack,5);
+    traverseR(stack->top);
+
     // free stack memory
     freeNodes( stack->top );
     // free stack

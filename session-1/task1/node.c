@@ -64,8 +64,13 @@ void traverseI( Node *start ) {
  */
 void traverseW( Node *node ) {  
 
-    // your implementation
-    
+    do {
+        printf(" %d",node->data->value);
+        node = node->next;
+    } while (node != NULL);
+
+    printf("\n");
+
     return;
 }
 
@@ -74,8 +79,12 @@ void traverseW( Node *node ) {
  */
 void traverseR( Node *node ) {  
     
-    // remember the golden rules
-    // base case, recursive call, approach the base case
+    printf(" %d",node->data->value);
+    if ( node -> next == NULL ) {
+        printf("\n");
+        return;
+    } else {
+        return traverseR( node -> next );
+    }
     
 }
-

@@ -24,6 +24,7 @@ Queue *createQueue( void ) {
     new->data = calloc(new->size,sizeof(Data *));  // allocate an initial block for queue storage
 
     // set initial values for back, front and length
+    new->front = new->back = new->length = 0;
 
     return new;
 }
@@ -42,9 +43,14 @@ void enlargeQueue( Queue *queue ) {
  */
 void join( Queue *queue, Data *new ) {
 
+    if (queue->length == queue->size) {
+        enlargeQueue(queue);
+    }
     // add new item at the back
     // increment back index
     // increment length
+    queue->data[queue->back++] = new;
+    ++queue->length;
 
     return;
 }
@@ -57,6 +63,12 @@ Data *leave( Queue *queue ) {
     // remove front item
     // increment front index
     // decrement length
+    Data* new = queue->data[queue->front++];
+    --queue->length;
+
+    if (queue->front > 4) {
+        shiftQueue(queue);
+    }
 
     return new;
 }
@@ -66,8 +78,9 @@ Data *leave( Queue *queue ) {
  */
 void displayQueue ( Queue *queue ) {
     printf("Queue length %d\n",queue->length);
-    for( int k=queue->front; k<queue->back; ++k )
+    for( int k=queue->front; k<queue->back; ++k ) {
         printf(" %d",queue->data[k]->value);
+    }
     printf("\n");
     return;
 }
@@ -76,8 +89,17 @@ void displayQueue ( Queue *queue ) {
  * free dynamic array data
  */
 void freeQueue( Queue *queue ) {
-    for( int k=0; k<queue->size; ++k )
+    for( int k=0; k<queue->size; ++k ) {
         free( queue->data[k] ); // free queue Data item
+    }
     free( queue->data );        // free queue Data array
     return;
+}
+
+void shiftQueue( Queue *queue ) {
+    for ( int i=0; i<queue->length; ++i) {
+        queue->data[i] = queue->data[queue->front+i];
+    }
+    queue->front = 0;
+    queue->back = queue->length - 1;
 }
