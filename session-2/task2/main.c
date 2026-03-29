@@ -14,6 +14,18 @@ int main( void ) {
     displayList( list );
 
     // further insert operations here, use displayList() to verify
+    insert(list,createData(4),1);
+    displayList(list);
+    insert(list,createData(5),1);
+    displayList(list);
+    insert(list,createData(6),0);
+    displayList(list);
+
+    Data* deleted = delete(list,1);
+    displayList(list);
+
+    //free deleted nodes
+    free(deleted);
 
     // free list dynamic memory
     freeList( list );

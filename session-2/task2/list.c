@@ -60,19 +60,29 @@ void insert( List *list, Data *new, int loc ) {
  * remove the front Data item from the List
  */
 Data *delete( List *list, int loc ) {
-    Data *new = NULL;
-    
+
     // check for empty List
+    if (list->data[0] == NULL) {
+        return NULL;
+    }
 
     // check for invalid loc
+    if (loc < 0 || loc > list->length - 1) {
+        return NULL;
+    }
 
     // extract Data item
+    Data* data = list->data[loc];
     
     // shuffle list down to remove the gap
+    for (int i=loc; i<list->length; i++) {
+        list->data[i] = list->data[i+1];
+    }
 
     // decrease list length
+    list->length--;
 
-    return new;
+    return data;
 }
 
 /*

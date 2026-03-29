@@ -16,12 +16,23 @@ int main( void ) {
     addNode(list,(Node *)NULL,1); // add at head - special case - pass NULL
 
     // display the list
+    traverseI(list->head);
 
-    // add and delete more nodes with addNode() and deleteNode()
+    // add and delete more nodes with addNode() and removeNode()
+    addNode(list,list->head->next,35);
+    addNode(list,list->head->next->next,8);
+    addNode(list,list->head->next,5);
+    traverseI(list->head);
+
+    Node* deleted = removeNode(list,list->head->next); //should remove 5
+    traverseI(list->head);
+
     // deallocate deleted nodes - test with valgrind to check this
+    freeNode(deleted);
 
     // free list memory
     freeNodes( list->head );
+    free(list);
 
     return 0;
 }
